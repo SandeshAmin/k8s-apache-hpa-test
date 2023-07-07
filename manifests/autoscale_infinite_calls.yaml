@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: stresscalls
+  namespace: apache-test
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: stresscalls
+  template:
+    metadata:
+      labels:
+        app: stresscalls
+    spec:
+      containers:
+      - name: stresscalls
+        image: busybox
+        ports:
+        - containerPort: 80
