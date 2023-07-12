@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: infinite-calls
+  name: stresscalls
   labels:
-    app: infinite-calls
+    app: stresscalls
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: infinite-calls
+      app: stresscalls
   template:
     metadata:
-      name: infinite-calls
+      name: stresscalls
       labels:
-        app: infinite-calls
+        app: stresscalls
     spec:
       containers:
-      - name: infinite-calls
+      - name: stresscalls
         image: busybox
         command:
         - /bin/sh
