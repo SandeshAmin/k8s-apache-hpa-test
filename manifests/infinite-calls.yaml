@@ -1,24 +1,24 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: stresscalls
+  name: infinite-calls
   labels:
-    app: stresscalls
+    app: infinite-calls
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: stresscalls
+      app: infinite-calls
   template:
     metadata:
-      name: stresscalls
+      name: infinite-calls
       labels:
-        app: stresscalls
+        app: infinite-calls
     spec:
       containers:
-      - name: stresscalls
+      - name: infinite-calls
         image: busybox
         command:
-        - /bin/sh
-        - -c
+        - "/bin/sh"
+        - "-c"
         - "while true; do wget -q -O- http://php-apache; done"
