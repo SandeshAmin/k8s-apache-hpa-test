@@ -18,6 +18,8 @@ if [[ ! $(kubectl get namespace apache-test -o name) ]]; then
   kubectl create namespace apache-test
 fi
 
+sleep 5
+
 # Apply manifests from the local manifests directory
 kubectl apply -f manifests/php-apache.yaml;
 
