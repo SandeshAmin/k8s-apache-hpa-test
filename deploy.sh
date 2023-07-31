@@ -21,5 +21,5 @@ fi
 sleep 5
 
 # Apply manifests from the local manifests directory
-kubectl apply -f manifests/php-apache.yaml;
+kubectl apply -f -n apache-test manifests/php-apache.yaml;
 
