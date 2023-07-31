@@ -1,25 +1,26 @@
 #!/bin/bash
 
-# Add Bitnami Helm repository
-helm repo add bitnami https://charts.bitnami.com/bitnami
-
 # Check if the repository was added successfully
 if [[ ! $(helm repo list | grep bitnami) ]]; then
-  echo "Error: Failed to add Bitnami Helm repository."
+  helm repo add bitnami https://charts.bitnami.com/bitnami
   exit 1
 fi
 
-# Install metrics-server using Helm
-kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
-helm install metrics-server bitnami/metrics-server
+NAMESPACE="apache-test"
 
 # Check if namespace apache-test exists, create if it doesn't
-if [[ ! $(kubectl get namespace apache-test -o name) ]]; then
-  kubectl create namespace apache-test
+if [[ ! $(kubectl get namespace $NAMESPACE -o name) ]]; then
+  kubectl create namespace $NAMESPACE
+  echo "Namespace $NAMESPACE created successfully."
+else
+  echo "Namespace $NAMESPACE already exists."
+  # Add your additional actions here if needed
 fi
+
+# Enable metrics.k8s.io/v1beta1 API using Helm chart configuration
+helm upgrade --install --namespace kube-system metrics-server bitnami/metrics-server --set apiService.create=true
 
 sleep 5
 
 # Apply manifests from the local manifests directory
-kubectl apply -f -n apache-test manifests/php-apache.yaml;
-
+kubectl apply -f manifests/php-apache.yaml;
