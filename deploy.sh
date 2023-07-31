@@ -14,7 +14,6 @@ if [[ ! $(kubectl get namespace $NAMESPACE -o name) ]]; then
   echo "Namespace $NAMESPACE created successfully."
 else
   echo "Namespace $NAMESPACE already exists."
-  # Add your additional actions here if needed
 fi
 
 # Enable metrics.k8s.io/v1beta1 API using Helm chart configuration
